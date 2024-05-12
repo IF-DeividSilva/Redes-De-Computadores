@@ -1,0 +1,57 @@
+----CONFIGURAÇÕES INICIAIS ROTEADOR------
+1- Configurar o nome
+Router(config)# hostname hostname
+
+2- Proteger o modo EXEC privilegiado
+Router(config)# enable secret password
+
+3- Proteger o modo EXEC usuario
+Router(config)# line console 0
+Router(config-line)# password
+Router(config-line)# login
+
+4- Proteger o acesso remoto Telnet/SSH
+Router(config-line)# line vty 0 4 
+Router(config-line)# password senha
+Router(config-line)# login
+Router(config-line)# transport input {ssh | telnet}
+
+5- Proteger todas as senhas do arquivo de configuração.
+Router(config)# service password-encryption
+
+6- Apresentar a notificação personalisada
+Router()# banner motd # mensagem #
+ 
+7- Salvar configuração 
+Router# copy running-config startup-config
+
+
+-----CONFIGURAÇÃO DE INTERFACE-----
+
+Router(config)# interface type-and-number
+Router(config-if)# description description-text
+Router(config-if)# ip address ipv4-address subnet-mask
+Router(config-if)# ipv6 address ipv6-address/prefix-length
+Router(config-if)# no shutdown
+
+Exemplo:
+GigabitEthernet 0/0/0 (G0/0/0)
+
+R1(config)# interface gigabitEthernet 0/0/0
+R1(config-if)# description Link to LAN
+R1(config-if)# ip address 192.168.10.1 255.255.255.0
+R1(config-if)# ipv6 address 2001:db8:acad:10::1/64
+R1(config-if)# no shutdown
+R1(config-if)# exit
+
+Para verificar -> show ip interface brief ou show ipv6 interface brief
+Exibir tabelas de roteamento 
+-> show ip route ou show ipv6 route
+
+Exibir interfaces do roteador
+-> show ip interfaces
+-> show ipv6 interfaces
+
+
+Configurar Gateway padrão
+S1(config)#ip default-gateway 192.168.10.1
